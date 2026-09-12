@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user") // "user" | "admin"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tikets       Tiket[]
+  ticketUsages TicketUsage[]
+}
+
+model Tiket {
+  id          String   @id @default(cuid())
+  userId      String
+  judul       String
+  deskripsi   String
+  status      String   @default("pending") // "pending" | "approved" | "rejected" | "expired" | "done"
+  alasanReject  String?
+  pesanApprove  String?
+  expiredAt     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TicketUsage {
+  id        String   @id @default(cuid())
+  userId    String
+  count     Int      @default(0)
+  resetAt   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
