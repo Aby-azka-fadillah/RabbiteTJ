@@ -389,7 +389,7 @@ export default function HomePage() {
             <div>
               <h4 className="text-[9px] tracking-[0.3em] text-white/25 uppercase mb-5">Layanan</h4>
               <ul className="space-y-3">
-                {['Teknisi AC', 'Instalasi CCTV', 'Service Laptop', 'Pompa Air', 'Instalasi Listrik'].map((l) => (
+                {['Bug pada Aplikasi Web', 'Install & Setup Server', 'Optimasi Database', 'Recovery Data Laptop'].map((l) => (
                   <li key={l}>
                     <span className="text-xs text-white/25 tracking-wide">{l}</span>
                   </li>
