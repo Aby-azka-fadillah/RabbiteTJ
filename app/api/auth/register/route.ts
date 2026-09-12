@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email sudah terdaftar.' }, { status: 409 })
     }
 
-    const hashed = await bcrypt.hash(password, 10)
+    const hashed = await bcrypt.hash(password, 8)
     await prisma.user.create({
       data: { name, email, password: hashed, role: 'user' },
     })
