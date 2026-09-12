@@ -402,8 +402,8 @@ export default function HomePage() {
               <h4 className="text-[9px] tracking-[0.3em] text-white/25 uppercase mb-5">Kontak</h4>
               <ul className="space-y-3">
                 {[
-                  [Mail, 'admin@tiketjasa.com'],
-                  [Phone, '+62 812-3456-7890'],
+                  [Mail, 'azkafadillah1107@gmail.com'],
+                  [Phone, '0851-4727-6431'],
                   [MapPin, 'Jakarta, Indonesia'],
                 ].map(([Icon, text], i) => (
                   <li key={i} className="flex items-center gap-2.5">
