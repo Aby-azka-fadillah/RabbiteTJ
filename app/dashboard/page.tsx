@@ -39,6 +39,11 @@ export default async function DashboardPage() {
     prisma.tiket.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
+      include: {
+        balasan: {
+          orderBy: { createdAt: 'asc' },
+        },
+      },
     }),
     prisma.ticketUsage.findUnique({ where: { userId } }),
   ])
@@ -186,6 +191,23 @@ export default async function DashboardPage() {
                       }`}>
                         {tiket.status === 'approved' ? tiket.pesanApprove : tiket.alasanReject}
                       </p>
+                    </div>
+                  )}
+
+                  {/* Thread balasan admin */}
+                  {tiket.balasan.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      <div className="text-[10px] tracking-[0.2em] text-white/25 uppercase">
+                        Pesan dari Admin ({tiket.balasan.length})
+                      </div>
+                      {tiket.balasan.map((b) => (
+                        <div key={b.id} className="border-l-2 border-indigo-500/40 pl-3 py-1.5 bg-indigo-500/5">
+                          <p className="text-xs text-white/60 leading-relaxed">{b.pesan}</p>
+                          <p className="text-[10px] text-white/20 mt-1">
+                            {new Date(b.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                          </p>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>

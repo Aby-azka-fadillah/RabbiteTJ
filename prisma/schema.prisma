@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -33,6 +34,16 @@ model Tiket {
   updatedAt   DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balasan BalasanTiket[]
+}
+
+model BalasanTiket {
+  id        String   @id @default(cuid())
+  tiketId   String
+  pesan     String
+  createdAt DateTime @default(now())
+
+  tiket Tiket @relation(fields: [tiketId], references: [id], onDelete: Cascade)
 }
 
 model TicketUsage {
